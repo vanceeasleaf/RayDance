@@ -1,0 +1,28 @@
+E:\My Documents\DotNetSource\bin\Debug\ImgDlgSample.exe
+E:\My Documents\DotNetSource\bin\Debug\ImgDlgSample.pdb
+E:\My Documents\DotNetSource\obj\Debug\ResolveAssemblyReference.cache
+E:\My Documents\DotNetSource\obj\Debug\ImgDlgSample.Form1.resources
+E:\My Documents\DotNetSource\obj\Debug\ImgDlgSample.Properties.Resources.resources
+E:\My Documents\DotNetSource\obj\Debug\ImgDlgSample.Form2.resources
+E:\My Documents\DotNetSource\obj\Debug\ImgDlgSample.csproj.GenerateResource.Cache
+E:\My Documents\DotNetSource\obj\Debug\ImgDlgSample.exe
+E:\My Documents\DotNetSource\obj\Debug\ImgDlgSample.pdb
+D:\Project\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.exe
+D:\Project\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.pdb
+D:\Project\实现窗口以透明PNG绘制_控件不透明\bin\Debug\ImgDlgSample.exe
+D:\Project\实现窗口以透明PNG绘制_控件不透明\bin\Debug\ImgDlgSample.pdb
+D:\Project\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ResolveAssemblyReference.cache
+D:\Project\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.Form1.resources
+D:\Project\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.Properties.Resources.resources
+D:\Project\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.Form2.resources
+D:\Project\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.csproj.GenerateResource.Cache
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.exe
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.pdb
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\bin\Debug\ImgDlgSample.exe
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\bin\Debug\ImgDlgSample.pdb
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.Form1.resources
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.Properties.Resources.resources
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\obj\Debug\ImgDlgSample.Form2.resources
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\obj\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\obj\Debug\GenerateResource-ResGen.write.1.tlog

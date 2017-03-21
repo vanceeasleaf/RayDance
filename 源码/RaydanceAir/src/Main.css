@@ -1,0 +1,14 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+global
+{
+	color: #753939;
+	font-family: Verdana;
+	font-style: normal;
+	font-weight: normal;
+	content-background-alpha: 0.0;
+	symbol-color: #C8BCBC; 
+}

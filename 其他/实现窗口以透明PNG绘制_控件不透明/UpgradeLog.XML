@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="ImgDlgSample">
+</Property><Property Name="解决方案文件" Value="C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\ImgDlgSample.sln">
+</Property><Property Name="用户选项文件" Value="C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\ImgDlgSample.suo">
+</Property><Property Name="Date" Value="2012年8月29日">
+</Property><Property Name="Time" Value="17:09">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="ImgDlgSample.sln" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\ImgDlgSample.sln">
+</Event><Event ErrorLevel="0" Project="" Source="ImgDlgSample.suo" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\ImgDlgSample.suo">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="ImgDlgSample.csproj" Description="项目文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\ImgDlgSample.csproj">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Form2.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Form2.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Form2.Designer.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Form2.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Src\Constant.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Src\Constant.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Form1.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Form1.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Form1.Designer.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Form1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Src\GDI32Dll.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Src\GDI32Dll.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Src\ImageDlgBase.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Src\ImageDlgBase.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Src\Kernal32Dll.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Src\Kernal32Dll.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Program.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Program.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Properties\AssemblyInfo.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Properties\Resources.Designer.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Properties\Settings.Designer.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Src\User32Dll.cs" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Src\User32Dll.cs">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Properties\Settings.settings" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Resources\DemoDlg1.png" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Resources\DemoDlg1.png">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Resources\DemoDlgBg2.png" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Resources\DemoDlgBg2.png">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Resources\desktopmasks_bk.png" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Resources\desktopmasks_bk.png">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Form1.resx" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Form1.resx">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Properties\Resources.resx" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="Form2.resx" Description="文件已成功备份为 C:\Users\vance\Desktop\实现窗口以透明PNG绘制_控件不透明\Backup\Form2.resx">
+</Event><Event ErrorLevel="1" Project="ImgDlgSample" Source="ImgDlgSample.csproj" Description="您的项目以 .NET Framework 2.0 或 3.0 为目标。如果您的项目使用的程序集需要更新的 .NET Framework，则项目生成将失败。通过单击项目菜单上的“属性”，然后在“.NET Framework”下拉框中选择一个新版本，可以更改 .NET Framework 的版本。(在 Visual Basic 中，可在单击“高级编辑器选项...”按钮时显示的“编译”选项卡上找到此下拉框。)">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="ImgDlgSample.csproj" Description="项目已成功转换">
+</Event><Event ErrorLevel="3" Project="ImgDlgSample" Source="ImgDlgSample.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="ImgDlgSample.sln" Description="成功转换解决方案">
+</Event><Event ErrorLevel="3" Project="" Source="ImgDlgSample.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="ImgDlgSample" Source="ImgDlgSample.csproj" Description="扫描完成: 项目文件不需要升级。">
+</Event></UpgradeLog>

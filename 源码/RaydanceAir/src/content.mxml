@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:mychart="mychart.*"
+		 xmlns:ns1="*"
+		 width="674" height="502" creationComplete="init()">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			private var bands:ArrayCollection;
+			public var X:Array=[];
+			public var Y:Array=[];
+			public var pointNumber:int;
+			public var used:Boolean=false;
+			public var path:String;
+			public var fitting:Fit
+			import mx.events.ResizeEvent;
+			var chart1:Chart
+			var hasRendered=false;
+			import mychart.Chart;
+			function init():void{
+				setBands();
+				fitting=new Fit();
+				fitting.content1=this;
+				ok.addEventListener(MouseEvent.CLICK,onOk)
+				cancel.addEventListener(MouseEvent.CLICK,onCancel)
+				fitting.info=this.info;
+				var data:Array=[];
+				var data2:Array=[]
+				var options:Object={
+					margin:[14,14,64,44],
+					renderTo:chartCVS,
+					scaleWidth:chartBorder.width,
+						scaleHeight:chartBorder.height,
+						series:[
+							{name:'Expriment',type:'line',data:data,color:0x000FF0,weight:1},
+							{name:'Fit',type:'line',data:data2,color:0xFF0000,weight:1}
+						]
+				};
+				
+				chart1=new Chart(options);
+				hasRendered=true;
+				dispatchEvent(new Event("ready"));
+			}
+
+			function onOk(e:MouseEvent){
+				var a:Array=this.path.split("\\");
+				var b:String=a[a.length-1].replace(".txt",'');
+				a.pop();
+				b=a.join("\\")+'\\'+b+'-fitted.txt';
+				trace(b);
+				fitting.start(bandsSelect.selectedItem.value,this.path,b);
+				fitPanel.visible=false;
+			}
+			function onCancel(e:MouseEvent){
+				fitPanel.visible=false;
+			}
+			function setBands(){
+				fitPanel.visible=false;
+				var data:Array=[];
+				data.push({label:0+'-'+0,value:0});
+			for(var i:int=1;i<3;i++){
+					data.push({label:i+'-'+0,value:i});
+
+			}
+			for( i=1;i<3;i++){
+			data.push({label:0+'-'+i,value:-i});
+			}
+				bands=new ArrayCollection(data);
+				bandsSelect.selectedIndex=0;
+			}
+			public function setGraph(){
+				var data:Array=[]
+				for(var i:int=0;i<pointNumber;i++){
+					data[i]=[X[i],Y[i]];
+				}
+				chart1.series[0].setData(data);
+				chart1.redraw();
+			}
+			function go(c:Array){
+				var data:Array=[]
+				for(var i:int=0;i<pointNumber;i++){
+					data[i]=[X[i],c[i]];
+				}
+				if(chart1.zoomed){
+					chart1.unZoom();
+				}
+				chart1.series[1].setData(data);
+				chart1.redraw();
+			}
+			protected function chartFrame1_resizeHandler(event:ResizeEvent):void
+			{
+				if(hasRendered){
+					chart1.resize(chartBorder.width,chartBorder.height);
+				}
+			}
+			//borderVisible="false"
+		]]>
+	</fx:Script>
+<mx:HDividedBox top="1" width="100%" height="100%" backgroundColor="#FFFFFF" borderColor="#301A1A"
+				borderVisible="true" dropShadowVisible="false" horizontalGap="2"
+				liveDragging="false">
+		<mx:VDividedBox width="30%" height="100%" verticalGap="2">
+
+			<s:Group width="100%" height="50%">
+				<s:TextArea id="dataTable" width="100%" height="100%" borderVisible="false"
+							editable="false" focusColor="#EAB2B2" lineBreak="explicit"
+							text="Please Choose Data"/>
+				<s:Line left="0" right="0" bottom="0">
+				<s:stroke>
+					<s:SolidColorStroke alpha=".4" color="0xbb9696"/>
+				</s:stroke>
+			</s:Line>
+			</s:Group >
+			<s:TextArea id="info" width="100%" height="50%" borderAlpha="0.15" borderVisible="false"
+						editable="false" focusColor="#EAB2B2" lineBreak="explicit"
+						prompt="-FITTING STATES-" text="-FITTING STATES-&#xd;Please Start Fitting&#xd;"
+						textAlign="left" verticalAlign="top"/>
+		</mx:VDividedBox>
+		<s:Group id="chartBorder" width="70%" height="100%" resize="chartFrame1_resizeHandler(event)">
+		<s:Line left="-2" top="0" bottom="0">
+				<s:stroke>
+					<s:SolidColorStroke alpha=".4" color="0xbb9696"/>
+				</s:stroke>
+			</s:Line>
+			<ns1:chartFrame id="chartCVS" x="0" y="0" width="400" height="250"/>
+		</s:Group>
+	</mx:HDividedBox>
+	<s:Panel id="fitPanel" width="260" height="140" backgroundColor="#F6F4F4" borderAlpha="1.0"
+			 borderColor="#908E8E" borderVisible="true" contentBackgroundAlpha="1.0"
+			 contentBackgroundColor="#DFDCDC" cornerRadius="10" dropShadowVisible="false"
+			 horizontalCenter="0" title="Select Vibrational Bands" verticalCenter="0">
+		<s:Button id="ok" left="170" bottom="76" label="Go" cornerRadius="4"/>
+		<s:Button id="cancel" left="170" bottom="30" label="Cancel" cornerRadius="4"/>
+		<s:DropDownList id="bandsSelect" left="24" top="10" borderColor="#C8C8C8"
+						contentBackgroundAlpha="1.0" cornerRadius="4" dataProvider="{bands}"
+						dropShadowVisible="false">
+		</s:DropDownList>
+	</s:Panel>
+	
+</s:Group>

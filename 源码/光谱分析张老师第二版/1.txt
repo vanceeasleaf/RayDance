@@ -1,0 +1,165 @@
+#include "math.h"
+#include "stdio.h"
+Sub INTEN(int N,double T00)
+{
+    double Tvib;
+    Tvib = P[1]
+    double Trot;
+    Trot = P[2]
+    Double Whalf;
+    Whalf = P[3]
+    Double G12;
+    G12 = 10000000 / P[N - 1 + NQ] - Ve;
+    Double W;
+    W = 2 * PI * C0 * G12;
+    Double D1, D2, DStep, Nrange;
+   // D1 = 4 * B1[N] ^ 3 / W ^ 2;
+   // D2 = 4 * B2[N] ^ 3 / W ^ 2;
+     D1 = 4 * pow(B1[N],3.0) /pow(W, 2.0);
+    D2 = 4 * pow(B2[N],3.0) / pow(W, 2.0);
+    DStep = (Xorg[pointNumber] - Xorg[1])/ CDbl[pointNumber - 1];    //数据步长估计
+    Nrange = 1 / DStep;                               //发光峰数据点范围
+    int j;
+    For(j = 0;j<= Jmax;j++)
+       {
+        Double Fup, Tup, FP, FQ, FR, SP, SQ, SR, FP12, FQ12, FR12;
+        Fup = j * (j + 1) * (B1[N] - D1 * j * (j + 1));    //上能级转动能(波数单位)
+        Tup = Fup * h0 * C0 * 100 / KB ;              //计算转动能(温度单位)
+        FP = (j + 2) * (j + 1) * (B2[N] - D2 * (j + 2) * (j + 1));    //下能级转动能(波数单位)
+        FQ = j * (j + 1) * (B2[N] - D2 * j * (j + 1)) ;   //下能级转动能(波数单位)
+        FR = j * (j - 1) * (B2[N] - D2 * j * (j - 1));    //下能级转动能(波数单位)
+        SP = SP0[j + 1];
+        SQ = SQ0[j + 1];
+        SR = SR0[j + 1];
+        FP12 = Fup - FP;                               //上下能级转动能量差
+        FQ12 = Fup - FQ;                              //上下能级转动能量差
+        FR12 = Fup - FR;                               //上下能级转动能量差
+        Double WP, WQ, WR, WLP, WLQ, WLR;
+        WP = 10000000 / P[N - 1 + NQ] + FP12;         //计算发射光谱波数
+        WQ = 10000000 / P[N - 1 + NQ] + FQ12;
+        WR = 10000000 / P[N - 1 + NQ] + FR12;
+        WLP = 10000000 / WP ;                         //计算发射光谱波长(单位nm)
+        WLQ = 10000000/ WQ;                          //计算发射光谱波长(单位nm)
+        WLR = 10000000 / WR ;                         //计算发射光谱波长(单位nm)
+        WP = 0.0001 * WP;
+        WQ = 0.0001 * WQ;
+        WR = 0.0001 * WR;
+        Double PP, PQ, PR, NWL, Imin, Imax;
+        PP = pow(WP,4) * Q12[N] * Exp(-T00 / Tvib) * SP * Exp(-Tup / Trot);    //计算发射强度
+        PQ = pow(WQ,4) * Q12[N] * Exp(-T00 / Tvib) * SQ * Exp(-Tup / Trot);    //计算发射强度
+        PR = pow(WR,4) * Q12[N] * Exp(-T00 / Tvib) * SR * Exp(-Tup / Trot);    //计算发射强度
+        NWL = floor((WLQ - Xorg[1]) / DStep + 0.5) + 1  //wlqP(N - 1 + NQ);
+        Imin = NWL - Nrange;
+        Imax = NWL + Nrange;
+        If (Imin < 1)  Imin = 1;
+        If (Imax > pointNumber) Imax = pointNumber;
+
+        If (Ishape == 1)
+           {
+            //^^^^^^^^^* Gauss Function for Peak ^^^^^^^^^
+            Double Wgauss, XX, DXP, DXQ, DXR;
+            Wgauss = 1 / Sqr(PI / 2) / Whalf;        //Gauss函数系数
+            int i;
+            For(i = Imin;i<=Imax;i++)
+               {
+                XX = Xorg[i];
+                DXP = -2.0 * pow(((XX - WLP) / Whalf),2);
+                DXQ = -2.0 * pow(((XX - WLQ) / Whalf),2);
+                DXR = -2.0 * pow(((XX - WLR) / Whalf),2);
+                Ysub[i] = Ysub[i] + Wgauss * (PP * Exp(DXP) + PQ * Exp(DXQ) + PR * Exp(DXR));
+               }
+        
+            //^^^^^^^^^* Lorentz Function for Peak ^^^^^^^^^
+         elseif (Ishape == 0) Then
+                Double WLorentz;
+                WLorentz = 2 * Whalf / PI;             //Lorentz函数系数
+                For(i = Imin;i<= Imax;i++)
+                   {
+                    XX = Xorg[i];
+                    DXP = 4 * pow((XX - WLP), 2) + pow(Whalf,2);
+                    DXQ = 4 * pow((XX - WLQ), 2) + pow(Whalf,2);
+                    DXR = 4 * pow((XX - WLR), 2) + pow(Whalf, 2);
+                    Ysub[i] = Ysub[i] + WLorentz * (PP / DXP + PQ / DXQ + PR / DXR);
+                   }
+            Else
+                //^^^^^^^^^* Voigt Function for Peak ^^^^^^^^^
+                Double Ratio, Para;
+                Ratio = 0.5;
+                Para = Log(4);
+                Wgauss = Ratio * Para / Sqrt(PI / 2) / Whalf;    //Gauss函数系数
+                For(i = Imin;i<= Imax;i++)
+                   {
+                    XX = Xorg[i];
+                    DXP = -2 * Para * pow(((XX - WLP) / Whalf),2);
+                    DXQ = -2 * Para * pow(((XX - WLQ) / Whalf),2);
+                    DXR = -2 * Para * pow(((XX - WLR) / Whalf),2);
+                    Ysub[i] = Ysub[i] + Wgauss * (PP * Exp(DXP) + PQ * Exp(DXQ) + PR * Exp(DXR));
+                   }
+                WLorentz = (1 - Ratio) * 2 * Whalf / PI;    //Lorentz函数系数
+                For( i = Imin;i<= Imax;i++)
+                   {
+                    XX = Xorg[i];
+                    DXP = 4 * pow((XX - WLP),2 + pow(Whalf,2);
+                    DXQ = 4 * pow((XX - WLQ),2 + pow(Whalf,2);
+                    DXR = 4 * pow((XX - WLR),2 + pow(Whalf,2);
+                    Ysub[i] = Ysub[i] + WLorentz * (PP / DXP + PQ / DXQ + PR / DXR);
+                    }
+              }
+       
+     }
+}
+
+viod Gauss()
+{
+    int k,Imax;
+    double Amax;
+    For(k = 1;k<=parameterNumber;k++)
+       {
+        Amax = 0.0;
+        Imax = 1;
+        int i;
+        For(i = k;i<=parameterNumber;i++)
+           {
+            If (Abs(AA[i, k]) > Amax)
+               {
+                Amax = Abs(AA[i, k]);
+                Imax = i;
+               }
+           }
+        If (Abs(Amax) < 1.0E-32)
+           {
+           // Debug.Print k, k, Amax
+            printf("%d,%d,%f",k,k,Amax);
+            AA[Imax, k] = 1.0;
+           }
+        int j;
+        For( j = k;j<=parameterNumber + 1;j++)
+           {
+            double T;
+            T = AA[k, j];
+            AA[k, j] = AA[Imax, j];
+            AA[Imax, j] = T;
+           }
+        Amax = AA[k, k];
+        For(j = k;j<=parameterNumber + 1;j++)
+           {
+            AA[k, j] = AA[k, j] / Amax;
+           }
+        For(i = k + 1;i<=parameterNumber;i++)
+           {
+            T = AA[i, k];
+            For(j = k;j<=parameterNumber + 1;j++)
+               {
+                AA[i, j] = AA[i, j] - T * AA[k, j];
+               }
+           }
+          }
+    For( k = parameterNumber;k>=1;k--)
+        {
+        T = AA[k, parameterNumber + 1];
+        For(i = k - 1;i>=1;i--)
+           {
+            AA[i, parameterNumber + 1] = AA[i, parameterNumber + 1] - T * AA[i, k];
+           }
+        }
+}

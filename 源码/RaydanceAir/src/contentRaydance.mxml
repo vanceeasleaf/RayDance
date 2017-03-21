@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			public var  used:Boolean=true;
+			]]>
+	</fx:Script>
+	<s:TextArea top="1" width="70%" height="100%" borderVisible="false" editable="false"  focusColor="#EAB2B2" selectable="false" verticalScrollPolicy="off">
+		<s:text><![CDATA[    Welcome to RayDance spectra fitting software !    Optical emission spectra of the  N_2  second positive band system(C ~3Π_u→B ~3Π_g) and the sequences of vibrational bands with Δv=0, Δv=1, Δv=2 and Δv=-1, Δv=-2 can be fitted in the program.      To start,you would click on the 'open' button and choose one of  your experiment data of Nitrogen molecule.    Example:the data must be in format like this:        100        360    400        370    500    that is,the first line must be the point number of the curve and the rest are lines containing  x and y    Now the original graph has been sketched and Secondly you click the "fit" button to choose the sequences of vibrational bands you want to fit.    Click "Go" and the fitting begin.You can see the "fitting" graph update as the new error of the fitting showing in the text area.    The final data will be saved automatically at the same path of the original.    Have fun!    ]]></s:text>
+	</s:TextArea>
+
+		
+	
+</s:Group>

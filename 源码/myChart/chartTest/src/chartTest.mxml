@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   xmlns:ns1="*"
+					   xmlns:mychart="mychart.*"
+					    creationComplete="init()">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ResizeEvent;
+			var chart1:Chart
+			var hasRendered=false;
+			import mychart.Chart;
+			function init():void{
+				var data:Array=[];
+				var data2:Array=[]
+				for(var i:int=0;i<2000;i++){
+					data[i]=[i,Math.sin(i*.1)];
+					data2[i]=[i,Math.log(i*.1+5)];
+				}
+				var options:Object={
+					margin:[14,14,64,44],
+					renderTo:chartCVS,
+					scaleWidth:chartBorder.width,
+					scaleHeight:chartBorder.height,
+					series:[
+						{name:'原函数',type:'line',data:data,color:0x000FF0},
+						{name:'插值点',type:'line',data:data2,color:0xFF0000}
+					]
+				};
+
+				chart1=new Chart(options);
+				hasRendered=true;
+			}
+			
+			protected function chartFrame1_resizeHandler(event:ResizeEvent):void
+			{
+				if(hasRendered){
+				chart1.resize(chartBorder.width,chartBorder.height);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+
+	<s:Group id="chartBorder" left="5" right="5" top="5" bottom="5" resize="chartFrame1_resizeHandler(event)">
+		<ns1:chartFrame id="chartCVS" x="0" y="0" width="400" height="250"/>
+	</s:Group>
+
+</s:WindowedApplication>

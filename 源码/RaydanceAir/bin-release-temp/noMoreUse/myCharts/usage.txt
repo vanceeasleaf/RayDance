@@ -1,0 +1,78 @@
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			public var lineChartData:ArrayCollection = new ArrayCollection([
+				{waveLength:2005,expriment:23.5,fitting:18.1},
+				{waveLength:2006,expriment:26.2,fitting:22.8},
+				{waveLength:2007,expriment:30.1,fitting:23.9},
+				{waveLength:2008,expriment:29.5,fitting:25.1},
+				{waveLength:2009,expriment:24.6,fitting:25.0}
+			]);            
+public function setGraph():void{
+	var a:Array=[];
+	for(var i=0;i<pointNumber;i++){
+		a[i]=	{waveLength:X[i],expriment:Y[i]};
+		
+	}
+	 lineChartData = new ArrayCollection(a); 
+	 lineChartData[10].fitting=10000;
+	 lineChartData[30].fitting=6000;
+}
+	public function go(c:Array){trace(111);
+		var a:Array=[];
+		for(var i=0;i<pointNumber;i++){
+			a[i]=	{waveLength:X[i],expriment:Y[i],fitting:c[i]};
+			
+		}
+		lineChartData = new ArrayCollection(a); 
+	}
+		]]>
+	</fx:Script>
+	<s:HGroup top="5" bottom="0" left="5" right="0">    
+	<s:TextArea id="dataTable" height="98%" width="183" borderVisible="false"
+				editable="false"  focusColor="#EAB2B2" lineBreak="explicit"/>
+	<mycharts:AmSerialChart 
+		id="chart"
+		width="100%"
+		height="100%"
+		autoMargins="true"
+		marginRight="5" 
+		marginLeft="5"
+		marginBottom="5"
+		marginTop="10"
+		categoryField="waveLength"
+		dataProvider="{lineChartData}">
+		
+		<mycharts:graphs>
+			<amcharts:AmGraph 
+				title="expriment"
+				valueField="expriment"
+				type="line"
+				lineColor="#ff0000"
+			 lineAlpha=".7"
+			 lineThickness="2"
+			/>      
+			<amcharts:AmGraph title="fitting" valueField="fitting" type="line" lineThickness="2" lineColor="#0000ff" lineAlpha=".7"/><!--  bullet="round"-->
+		</mycharts:graphs>
+		
+		<!-- It is very important to tell the category axis if it's values are date based or not.
+		In case yes, set parseDates to true. You should also set the minimum period of your data.
+		For example, if you have hourly data, set minPeriod to "hh". -->
+		<mycharts:valueAxes>
+			<amcharts:ValueAxis dashLength="4"/>
+			<amcharts:ValueAxis id="v1" axisColor="#FF6600" axisThickness="2" dashLength="4"/>                                  
+		</mycharts:valueAxes>
+		<mycharts:categoryAxis>
+			<amcharts:CategoryAxis gridPosition="start"  gridAlpha=".2" dashLength="4" color="#000000" tickLength="2"/>
+		</mycharts:categoryAxis>
+		
+		<mycharts:balloon>
+			<amcharts:AmBalloon cornerRadius="10" borderThickness="1.5" borderColor="#FFFFFF" borderAlpha=".7"/>                
+		</mycharts:balloon>    
+		<mycharts:chartCursor>
+			<amcharts:ChartCursor zoomable="true" cursorAlpha="0" categoryBalloonEnabled="false"/>                    
+		</mycharts:chartCursor> 
+		   
+	</mycharts:AmSerialChart> 

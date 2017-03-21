@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   xmlns:ns1="*"
+					   xmlns:raydance="raydance.*"
+					   xmlns:view="mvc.view.*"
+					   width="800" height="600" backgroundAlpha="0" contentCreationComplete="init()"
+					   showStatusBar="false">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	<fx:Style source="Main.css"/>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:SkinnableContainer id="window" left="12"  top="12"  backgroundColor="#4B1313"
+						  resize="onResize(event)" skinClass="RayDance_backGround">	
+		<s:SkinnableContainer left="4" right="80" top="4" height="38" backgroundAlpha="0.0"
+							  backgroundColor="#E7DBDB" doubleClick="onDClick(event)"
+							  doubleClickEnabled="true" mouseDown="stage.nativeWindow.startMove()"/>
+		<s:SkinnableContainer id="subFrame" left="3" right="3" top="43" bottom="3"
+							  skinClass="raydance.subFrame">
+			<s:Button x="6" y="10" width="60" height="22" label="Open"
+					 id="btnOpen" cornerRadius="4" />
+			<s:Button x="69" y="10" width="55" height="22" label="Fit" id="Fit"
+					  cornerRadius="4" />
+			<s:Button id="btn_stop" x="127" y="11" label="Stop"  cornerRadius="4" />
+			<ns1:contentRaydance id="content1" left="0" right="0" top="40" bottom="0">
+			</ns1:contentRaydance>
+		</s:SkinnableContainer>
+		<ns1:Tabs id="tab" left="0" top="16"/>
+	</s:SkinnableContainer>
+	<view:Resizer left="12" right="12" top="12" bottom="12" id="resizer"/>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import raydance.*;
+			var filePath:String;
+			public var contents:Array=[];
+			private var addedInt:Array=[];
+			private var oldIndex:int=0;
+			var fileStream:FileStream=new FileStream
+			var fileName:String
+			var file:File ;
+			var StageHeight:Number 
+			var StageWidth:Number 
+			import flash.events.NativeWindowBoundsEvent;
+			import mvc.AppFacade;
+			protected function init():void{
+				//AppFacade.getInstance().startup(this);
+				window.width=800-24;window.height=600-24;
+				StageHeight= flash.system.Capabilities.screenResolutionY;  //800
+			 	StageWidth= flash.system.Capabilities.screenResolutionX; //1280
+				this.move(StageWidth/2-this.width/2,StageHeight/2-this.height/2); 
+				contents[0]=content1;
+				contents[0].used=true;
+				Fit.enabled=false;
+				tab.addEventListener("tabActive",tabActive)
+				tab.addEventListener("newTab",onNewTab)
+				tab.addEventListener("tabClose",onCloseTab)
+				tab.tab0.label="RayDance"				
+				nativeWindow.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, onMax);
+				resizer.addEventListener("resized",function(){
+					window.width=resizer.width;
+					window.height=resizer.height;
+				});	
+				btnOpen.addEventListener(MouseEvent.CLICK,onOpen);
+				Fit.addEventListener(MouseEvent.CLICK,onFit);
+				btn_stop.addEventListener(MouseEvent.CLICK,onStop);
+			}		
+			protected function onDClick(e:MouseEvent):void{
+				if(nativeWindow.displayState==NativeWindowDisplayState.MAXIMIZED){
+					nativeWindow.restore()
+				}else if(nativeWindow.displayState==NativeWindowDisplayState.NORMAL){
+					nativeWindow.maximize()
+				}
+			}
+			var storeWidth:int;
+			var storeHeight:int;
+			protected function onMax(e:NativeWindowDisplayStateEvent):void{
+				switch (e.afterDisplayState)
+				{						
+					case NativeWindowDisplayState.MAXIMIZED :					
+						window.top=8;window.left=8;				
+						tab.top=6;
+						subFrame.top=33;	
+						if(e.beforeDisplayState!=NativeWindowDisplayState.MINIMIZED){
+							storeWidth=window.width;
+							storeHeight=window.height;
+						}
+						window.width=StageWidth;
+						window.height=StageHeight;
+						break;
+					case NativeWindowDisplayState.NORMAL :
+						window.top=12;window.left=12;
+						window.width=storeWidth;
+						window.height=storeHeight;
+						tab.top=16;
+						subFrame.top=43;
+						break;
+					case NativeWindowDisplayState.MINIMIZED :
+						if(e.beforeDisplayState!=NativeWindowDisplayState.MAXIMIZED ){
+							storeWidth=window.width;
+							storeHeight=window.height;
+						}
+					
+				}
+			}
+			function search(a:Array,b:int):int{
+				for(var i:int=0;i<a.length;i++){
+					if(a[i]==b) return i;
+				}
+				return -1;
+			}
+			protected function onCloseTab(e:CloseTabEvent):void
+			{
+				var k:int=search(addedInt,e.index)
+				if(k!=-1){//如果已经添加到舞台上
+				subFrame.removeElement(contents[e.index]);
+				addedInt.splice(k,1);
+				}
+				contents[e.index]=null;
+				contents[tab.activeNum].visible=true;
+				oldIndex=tab.activeNum;
+			}
+			protected function tabActive(e:ActiveTabEvent):void
+			{
+				trace(oldIndex+"oldIndex")
+				contents[oldIndex].visible=false;
+				oldIndex=e.index;
+				contents[oldIndex].visible=true;
+				trace(e.index+"active")
+				if(tab.activeNum==0){
+					Fit.enabled=false;
+				}else{
+					Fit.enabled=true;
+				}
+			}		
+			protected function onResize(event:Event):void{
+				tab.tabBarResize(window.width-100);
+			}
+			protected function onNewTab(e:Event):void
+			{
+				var a:content=new content;
+				a.left=0;
+				a.right=0;
+				a.bottom=0;
+				a.top=40;
+				//subFrame.addElement(a)
+				contents[oldIndex].visible=false;			
+				contents.push(a);
+				oldIndex=contents.length-1;
+				Fit.enabled=true;
+			}
+				protected function onOpen(event:MouseEvent):void{
+				file= new File(); 			 
+				var fileFilter:FileFilter=new FileFilter("txt","*.txt;");
+				file.browseForOpen("Select a directory",[fileFilter]); 
+				file.addEventListener(Event.SELECT, dirSelected);
+
+			}
+			function dirSelected(e:Event):void {	
+				filePath=e.target.nativePath;	
+				//trace(filePath);
+				var a:Array=filePath.split("\\");
+				fileName=a[a.length-1];			
+					fileStream.addEventListener(Event.COMPLETE,onComplete);
+					fileStream.openAsync(e.target as File, FileMode.READ); 	
+			} 
+			function onComplete(e:Event){
+				var outputString:String=fileStream.readUTFBytes(fileStream.bytesAvailable).replace(/\n/g,"");
+				fileStream.close(); 
+				if(contents[oldIndex].used){
+					var a:content=new content;
+					a.left=0;
+					a.right=0;
+					a.bottom=0;
+					a.top=40;				
+					subFrame.addElement(a);
+					tab.createNewTab();
+					Fit.enabled=true;
+					contents[oldIndex].visible=false;			
+					contents.push(a);
+					oldIndex=contents.length-1;
+					addedInt.push(oldIndex);
+				}else{
+					a=contents[oldIndex];
+					subFrame.addElement(a)
+					addedInt.push(oldIndex);
+				}
+				tab.tabs[tab.activeIndex].label=fileName;
+				a.used=true;
+				a.path=filePath;
+				var data:Array=outputString.split(String.fromCharCode(13));
+				a.pointNumber=parseInt(data[0]);
+				for(var i:int=1;i<=a.pointNumber;i++){
+					var c:Array=data[i].split(String.fromCharCode(9));
+					a.X[i-1]=parseFloat(c[0]);
+					a.Y[i-1]=parseFloat(c[1]);
+				}
+				a.dataTable.text=outputString;
+				a.addEventListener("ready",loaded);
+			}
+			function loaded(e:Event){
+				e.target.setGraph();
+			}
+			protected function onFit(event:MouseEvent):void
+			{
+				var a=contents[tab.activeNum];			
+				if(a.used==false){
+					return;
+				}
+				a.fitPanel.visible=!a.fitPanel.visible
+			} 
+
+	protected function onStop(event:MouseEvent):void
+			{
+				stage.dispatchEvent(new Event("stopFit"));
+			} 
+			
+		]]>
+	</fx:Script>
+	
+</s:WindowedApplication>

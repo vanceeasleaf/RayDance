@@ -1,0 +1,6 @@
+  LIBRARY intensity
+
+  EXPORTS 
+  inten @ 1
+  gauss @ 2
+

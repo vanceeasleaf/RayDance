@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:ns1="*"
+		addedToStage="onStage()" creationComplete="init()"
+		alpha.disabled="0.5">
+	
+	<fx:Metadata>
+		<![CDATA[ 
+		/** 
+		* @copy spark.skins.spark.ApplicationSkin#hostComponent
+		*/
+		[HostComponent("spark.components.SkinnableContainer")]
+		]]>
+	</fx:Metadata> 
+	
+	<fx:Script fb:purpose="styling">
+		<![CDATA[         
+			[bindable]private var topEdge:int
+			protected function init():void{
+				topEdge=8;
+			}
+			function onStage(){
+				stage.nativeWindow.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, onMax);
+			} 
+			protected function onMax(e:NativeWindowDisplayStateEvent):void{
+				switch (e.afterDisplayState)
+				{						
+					case NativeWindowDisplayState.MAXIMIZED :
+						topEdge=0;
+						btn_minimize.top=topEdge
+						btn_restore.top=topEdge
+						btn_maximize.top=topEdge
+						btn_close.top=topEdge 
+						background.radiusX=0
+						background.radiusY=0
+						horLine.visible=false;
+						verLine.visible=false;
+						btn_maximize.visible=false;
+						break;			
+					case NativeWindowDisplayState.NORMAL :				
+						topEdge=5
+						btn_minimize.top=topEdge
+						btn_restore.top=topEdge
+						btn_maximize.top=topEdge
+						btn_close.top=topEdge 
+						background.radiusX=4
+						background.radiusY=4
+						horLine.visible=true;
+						verLine.visible=true;
+						btn_maximize.visible=true;
+				}
+			}
+		]]>        
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<s:Rect id="background" left="0" right="0" top="0" bottom="0" radiusX="5" radiusY="5">
+		<s:stroke>
+			<s:SolidColorStroke alpha=".3" color="0"/>
+		</s:stroke>
+		<s:fill>
+			<s:BitmapFill fillMode="repeat" source="@Embed('raydance/theme_frame_default.png')"/>
+		</s:fill>	
+	</s:Rect>
+	<s:Image includeIn="normal" right="0" top="0" width="309"
+			 source="@Embed('raydance/windows_right_bg.png')"/>
+	<mx:HRule id="horLine" left="4" right="4" top="1" height="1" alpha=".6" chromeColor="#ffffff"/>
+	<mx:VRule id="verLine" left="1" top="4" bottom="4" width="1" alpha=".6" chromeColor="#ffffff"/>
+	<s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
+		<s:layout><!--作为容器的皮肤必须要有这个group-->
+			<s:BasicLayout/>
+		</s:layout>
+	</s:Group>
+	
+	<s:Button id="btn_close" right="5" top="5" label="按钮" click="stage.nativeWindow.close()"
+			  skinClass="raydance.components.close"/>	
+	<s:Button id="btn_minimize" right="55" top="5" label="按钮" click="stage.nativeWindow.minimize()"
+			  skinClass="raydance.components.minimize"/>
+	<s:Button id="btn_restore" right="30" top="5" label="按钮" click="stage.nativeWindow.restore()"
+			  skinClass="raydance.components.restore"/>
+	<s:Button id="btn_maximize" right="30" top="5" label="按钮" click="stage.nativeWindow.maximize()"
+			  skinClass="raydance.components.maximize"/>
+	
+</s:Skin>

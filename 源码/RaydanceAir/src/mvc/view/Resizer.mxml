@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
+		 xmlns:ns1="*"
+		 addedToStage="onStage()" creationComplete="init()"
+		 >
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+<fx:Script>
+	<![CDATA[
+		
+		import mx.managers.CursorManager
+		[Embed(source="raydance/point0.png")]
+		private var point0:Class;
+		[Embed(source="raydance/point1.png")]
+		private var point1:Class;
+		[Embed(source="raydance/point2.png")]
+		private var point2:Class;
+		[Embed(source="raydance/point3.png")]
+		private var point3:Class;
+		[bindable]
+		var pointers:Array;
+		var lines:Array ;
+		var currentBar;
+		protected function init():void{
+			this.mouseEnabled=false;
+			pointers= [point0,point1,point2,point3];
+			lines= [TL,T,TR,R,RB,B,LB,L];
+			currentBar= T;
+			for (var i:int=0; i<lines.length; i++)
+			{
+				lines[i].pointer = pointers[3 - i % 4];
+				lines[i].addEventListener(MouseEvent.ROLL_OVER,over1);
+				lines[i].addEventListener(MouseEvent.MOUSE_DOWN,down1);
+				lines[i].addEventListener(MouseEvent.ROLL_OUT,out1);
+			}
+		}
+		function onStage(){
+			stage.nativeWindow.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, onMax);
+		}
+		protected function onMax(e:NativeWindowDisplayStateEvent):void{
+			switch (e.afterDisplayState)
+			{						
+				case NativeWindowDisplayState.MAXIMIZED :	
+					left=8;
+					right=8;
+					top=8;
+					bottom=8;
+					for each(var line in lines){
+					line.visible=false;
+				
+				}
+					break;		
+				case NativeWindowDisplayState.NORMAL :	
+					left=12;
+					right=12;
+					top=12;
+					bottom=12;
+					for each(var line in lines){
+					line.visible=true;
+				}
+			}
+		}
+		function over1(e:MouseEvent )
+		{
+			currentBar = e.target;
+			CursorManager.setCursor(currentBar.pointer,3,-16,-16)
+		}
+		import flash.events.NativeWindowBoundsEvent
+		function down1(e:MouseEvent )
+		{
+			stage.nativeWindow.startResize(e.target.id);
+			stage.addEventListener(MouseEvent.MOUSE_UP,hd)
+			stage.nativeWindow.addEventListener(NativeWindowBoundsEvent.RESIZING,haha);
+		}
+		function haha(e:Event){
+			graphics.clear();
+			graphics.lineStyle(0,0x0088ff,.3);
+			graphics.beginFill(0x0088ff,.1);
+			graphics.drawRoundRect(0,0,unscaledWidth,unscaledHeight,10,10);
+			graphics.endFill(); 
+		}
+		function hd(e:MouseEvent){		
+			stage.removeEventListener(MouseEvent.MOUSE_UP,hd)
+				graphics.clear();
+			this.dispatchEvent(new Event("resized"));
+		}
+		function out1(e:MouseEvent )
+		{
+			CursorManager.removeAllCursors();	
+		}
+	]]>
+</fx:Script>
+	
+	<ns1:horizonal id="T"   left="30" right="30" top="0" height="8"/>
+	<ns1:horizonal id="B"  left="20" right="30" bottom="0" height="8"/>
+	<ns1:vertical id="L" left="0" top="30" bottom="30" width="8"/>
+	<ns1:vertical id="R"  right="0" top="30" bottom="30" width="8"/>
+	<ns1:LB_coner id="LB" left="0" bottom="0" width="30" height="30"/>
+	<ns1:RB_coner id="RB" right="0" bottom="0" width="30" height="30"/>
+	<ns1:TL_coner id="TL" left="0" top="0" width="30" height="30"/>
+	<ns1:TR_coner id="TR" right="0" top="0" width="30" height="30"/>
+</s:Group>
